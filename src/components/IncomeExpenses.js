@@ -4,7 +4,7 @@ import { numberWithCommas } from '../utils/format';
 
 export default function IncomeExpenses() {
 
-    const { transactions } = useContext(GlobalContext);
+    const { transactions = [] } = useContext(GlobalContext);
     const amounts = transactions.map( transaction => transaction.amount );
     const income = amounts
         .filter( transaction => transaction > 0)

@@ -33,14 +33,14 @@ export const GlobalProvider = ({ children }) => {
             console.log(error);
             dispatch({
                 type: 'TRANSACTION_ERROR',
-                data: error.response.data.error
+                data: error.response.data.error || { error: 'error occured...'}
             });
         }
     }
 
     const deleteTransaction = async (id) => {
         try {
-            const res = await Axios.delete(`/api/v1/transactions/${id}`);
+            await Axios.delete(`/api/v1/transactions/${id}`);
 
             dispatch({
                 type: 'DELETE_TRANSACTION',
