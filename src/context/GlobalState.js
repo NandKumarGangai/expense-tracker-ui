@@ -2,14 +2,8 @@ import React, { createContext, useReducer } from 'react';
 import Axios from 'axios';
 import AppReducer from './AppReducer';
 
-// const initialState = {
-//     transactions: [
-//     { id: 1, text: 'Flower', amount: -20 },
-//     { id: 2, text: 'Salary', amount: 300 },
-//     { id: 3, text: 'Book', amount: -10 },
-//     { id: 4, text: 'Camera', amount: 150 }
-//     ]
-// };
+const HOST = 'https://expense-tracker-server-96.herokuapp.com';
+
 const initialState = {
     transactions: [],
     error: null,
@@ -23,7 +17,7 @@ export const GlobalProvider = ({ children }) => {
 
     const getTransactions = async () => {
         try {
-            const res = await Axios.get('/api/v1/transactions');
+            const res = await Axios.get(`${HOST}/api/v1/transactions`);
             console.log(res.data);
             dispatch({
                 type: 'GET_TRANSACTION',
@@ -40,7 +34,7 @@ export const GlobalProvider = ({ children }) => {
 
     const deleteTransaction = async (id) => {
         try {
-            await Axios.delete(`/api/v1/transactions/${id}`);
+            await Axios.delete(`${HOST}/api/v1/transactions/${id}`);
 
             dispatch({
                 type: 'DELETE_TRANSACTION',
@@ -61,7 +55,7 @@ export const GlobalProvider = ({ children }) => {
                     'Content-Type': 'application/json'
                 }
             };
-            const res = await Axios.post('/api/v1/transactions', transaction, config);
+            const res = await Axios.post(`${HOST}/api/v1/transactions`, transaction, config);
 
             dispatch({
                 type: 'ADD_TRANSACTION',
